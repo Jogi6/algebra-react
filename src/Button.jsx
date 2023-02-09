@@ -1,10 +1,5 @@
-const Button = (props) => {
-    return (
-        <button>
-            {props.children}
-        </button>
-    )
-    
+const Button = ({children, clickListener}) => {
+    return <button onClick={clickListener}>{children}</button>;  
 }
 
 export default Button;
