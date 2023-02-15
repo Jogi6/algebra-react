@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Users from "./Users";
+import UsersContext from "./UsersContext";
 
 class App extends Component{
 
@@ -24,13 +25,17 @@ class App extends Component{
         dob: 52,
       },
     ]
-  }
+  };
 
   saveChanges = (data, type) =>{
     const {users} = this.state
     const userIndex = users.findIndex((user) => data.id == user.id);
     users[userIndex][type] = data.text;
     this.setState({users: users});
+  }
+
+  contextData = {
+    onSave: this.saveChanges
   }
 
   componentDidUpdate = () =>{
@@ -42,7 +47,9 @@ class App extends Component{
 
     return (
       <div className="container">
-        <Users users={users} onSave={this.saveChanges}/>
+        <UsersContext.Provider value={this.contextData}>
+          <Users users={users} />
+        </UsersContext.Provider>
       </div>
     );
   }
