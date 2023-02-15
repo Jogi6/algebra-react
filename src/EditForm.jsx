@@ -1,50 +1,49 @@
-import { Component } from "react";
+import {useState} from "react"
 
-export default class EditForm extends Component{
-    state = {
-        text: this.props.text,
-        id: this.props.id,
+const EditForm = (props) => {
+    const [text, setText] = useState(props.text);
+
+    const handleOnChange = (e) =>{
+        setText(e.target.value);
     }
 
-    handleOnChange = (e) =>{
-        this.setState({text: e.target.value})
-    }
+    const sendData = (e) =>{
+        const data = {
+            id: props.id,
+            text: text
+        }
 
-    sendData = (e) =>{
         if (e.type === "click" || e.key === "Enter") {
             const type = e.target.dataset.type;
-            this.props.onSave(this.state, type);
-            this.props.onCancle();
+            props.onSave(data, type);
+            props.onCancle();
         }
 
         if (e.key === "Escape") {
-            this.props.onCancle();
+            props.onCancle();
         }
     }
 
-    render(){
-        const {text } = this.state;
-        const {onCancle, type } = this.props;
-
-        return (
-            <div class="input-group">
-                <input data-type={type} 
+    return (
+        <div class="input-group">
+                <input data-type={props.type} 
                         type="text" 
                         value = {text} 
                         className="form-control" 
-                        onChange={this.handleOnChange} 
-                        onKeyUp={this.sendData} autoFocus />
-                <button data-type={type} 
+                        onChange={handleOnChange} 
+                        onKeyUp={sendData} autoFocus />
+                <button data-type={props.type} 
                         className="btn btn-success btn-sn" 
-                        onClick={this.sendData}>
+                        onClick={sendData}>
                             &#10003;
                 </button>
                 <button className="btn btn-danger btn-sn" 
-                        onClick={onCancle}>
+                        onClick={props.onCancle}>
                             X
                 </button>
             </div>
-        );
-            
-    }
+    )
+
 }
+
+export default EditForm;
