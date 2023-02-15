@@ -11,21 +11,38 @@ export default class EditForm extends Component{
     }
 
     sendData = (e) =>{
-        const type = e.target.dataset.type
-        this.props.onSave(this.state, type);
+        if (e.type === "click" || e.key === "Enter") {
+            const type = e.target.dataset.type;
+            this.props.onSave(this.state, type);
+            this.props.onCancle();
+        }
+
+        if (e.key === "Escape") {
+            this.props.onCancle();
+        }
     }
 
     render(){
         const {text } = this.state;
         const {onCancle, type } = this.props;
 
-        
-        
         return (
             <div class="input-group">
-                <input type="text" value = {text} onChange={this.handleOnChange}/>
-                <button data-type={type} className="btn btn-success btn-sn" onClick={this.sendData}>&#10003;</button>
-                <button className="btn btn-danger btn-sn" onClick={onCancle}>X</button>
+                <input data-type={type} 
+                        type="text" 
+                        value = {text} 
+                        className="form-control" 
+                        onChange={this.handleOnChange} 
+                        onKeyUp={this.sendData} autoFocus />
+                <button data-type={type} 
+                        className="btn btn-success btn-sn" 
+                        onClick={this.sendData}>
+                            &#10003;
+                </button>
+                <button className="btn btn-danger btn-sn" 
+                        onClick={onCancle}>
+                            X
+                </button>
             </div>
         );
             

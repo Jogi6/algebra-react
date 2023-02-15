@@ -41,7 +41,7 @@ export default class User extends Component{
                             {user.prezime}
                         </span>
                     )}
-                    {isEditSurname && <EditForm text={user.prezime} type="prezime" id={user.id} onSave={onSave} />}
+                    {isEditSurname && <EditForm text={user.prezime} type="prezime" id={user.id} onCancle={this.handleChangeEditSurname} onSave={onSave} />}
                 </th>
                 <th className="text-center">
                     {!isEditAge && (
@@ -49,7 +49,7 @@ export default class User extends Component{
                             {user.dob}
                         </span>
                     )}
-                    {isEditAge && <EditForm text={user.dob} type="dob" id={user.id} onSave={onSave} />}
+                    {isEditAge && <EditForm text={user.dob} type="dob" id={user.id} onCancle={this.handleChangeEditAge} onSave={onSave} />}
                 </th>
             </tr>
         );
