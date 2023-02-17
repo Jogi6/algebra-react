@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Outlet } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getItem } from "../services/data";
 
 const ShopItem = () =>{
@@ -16,8 +16,6 @@ const ShopItem = () =>{
             <h2>{item.desc}</h2>
             <img src={item.image} width={300}></img>
         </div>
-
-        <Outlet />
     </>
 }
 
